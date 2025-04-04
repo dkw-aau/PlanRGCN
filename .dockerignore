@@ -1,0 +1,8 @@
+#**/data
+**/data/wikidata
+**/data/dbpedia2016
+#**/.vscode
+**/dbpedia2016
+**/__pycache__
+**/core
+**/data

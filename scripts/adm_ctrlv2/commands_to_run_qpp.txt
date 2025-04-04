@@ -1,0 +1,1 @@
+(cd /home/cs.aau.dk/tq74iz/adm_ctrl_log_v2 && bash /srv/data/abiram/PlanRGCN/scripts/adm_ctrlv2/v2_adm_ctrl_qpp.sh > adm_ctrl_workload1.log 2>&1)

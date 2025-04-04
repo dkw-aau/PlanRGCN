@@ -1,0 +1,65 @@
+# Query Performance Predictions
+Existing (baseline) Query Performance Prediction for SPARQL queries
+
+## Folders
+### Folders pertaining Algebra Features and Query Pattern Features
+
+## Dataset Queries
+To extract queries, run the extract_queries.sh script in the scripts folder.
+Prerequisites for this are maven and java 17 and a running endpoint with the LSQ dump files loaded in. (see link for used LSQ dump: https://github.com/Abiram98/LSQDBpediaLogs)
+
+** The final query log for DBpedia is contained in dataset/queries2015_2016_clean.tsv**
+
+
+## Generate data
+To generate the dataset run with experiment_name
+Note: Running feature_rep/data_util.py seems to be killed in docker on Mac due to memory usage constraints.
+
+
+## For Sampled Dataset on DBpedia2016 (NEEDs update):
+for samples data:
+```
+python3 -m qpp_new.preprocessing.sampler
+```
+For GED features 
+```
+python3 -m qpp_new.feature_combiner
+```
+For extra features,
+first mvn package,
+```
+mvn package -f "/qpp/qpp_features/sparql-query2vec/pom.xml"
+```
+```
+java -jar '/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar' extra /qpp/dataset/queries2015_2016_clean_w_stat_q_str.tsv /qpp/dataset/DBpedia_2016_extra/extra
+```
+
+
+first run 
+```
+bash /qpp/scripts/sample_data_gen.sh
+```
+Then run the benchmark code from ... that collect the latency information.
+then 
+```
+python3 /qpp/data_analysis/analysis/analysis/benchmark_analysis.py
+python3 '/qpp/lsq_extract/workload_gen/bin_queries.py' --input_type sample_20000_post
+```
+
+
+## For simple dataset with BGP and optionals
+For GED features 
+```
+python3 -c """
+import qpp_new.feature_combiner as q
+q.create_different_k_ged(basedir='/qpp/dataset/DBpedia_2016_12k_sample_simple')
+"""
+```
+For extra features,
+first mvn package,
+```
+mvn package -f "/qpp/qpp_features/sparql-query2vec/pom.xml"
+```
+```
+java -jar '/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar' extra /qpp/dataset/queries2015_2016_clean_w_stat_q_str.tsv /qpp/dataset/DBpedia_2016_extra/extra
+```
