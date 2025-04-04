@@ -1,4 +1,5 @@
 # PlanRGCN
+You can find the development git repo for this method in [PlanRGCN](https://github.com/Abiram98/PlanRGCN).
 
 ## Prerequisites
 Docker should be installed
